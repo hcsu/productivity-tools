@@ -18,11 +18,9 @@ o() {
   fi
 
   if [ $1 = login ]; then
-    oidc2aws -login -alias $ROLE
-    echo 'oidc2aws -login -alias' $ROLE
+    print -z "oidc2aws -login -alias $ROLE"
   elif [ $1 = env ]; then
-    $(oidc2aws -env -alias $ROLE)
-    echo '$(oidc2aws -env -alias' $ROLE')'
+    print -z '$(oidc2aws -env -alias' $ROLE')'
   fi
 }
 ```
