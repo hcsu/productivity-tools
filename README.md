@@ -1,6 +1,13 @@
 # My productivity tools
 
 ## Interact with multiple roles for `oidc2aws`
+
+Requirement：
+* oidc2aws
+* fzf
+
+Copy following script in your `~/.zshrc` file.
+
 ```shell
 o() {
   ROLE=$(ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | fzf --exact --height "50%")
