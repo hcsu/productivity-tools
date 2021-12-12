@@ -30,6 +30,6 @@ o() {
 
 ## terraform-targets
 
-**Deal with multiple terraform targets**
+**Deal with multiple terraform targets.**
 
 https://github.com/hcsu/terraform-targets
