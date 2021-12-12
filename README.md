@@ -2,7 +2,7 @@
 
 ## Interact with multiple roles for `oidc2aws`
 
-Requirement：
+Requires：
 * oidc2aws
 * fzf
 
@@ -13,7 +13,8 @@ o() {
   ROLE=$(ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | fzf --exact --height "50%")
   
   if [ -z "$1" ]; then
-    echo "Please input login or env!!!"
+    echo "No argument input, default login!"
+    print -z "oidc2aws -login -alias $ROLE"
     return
   fi
 
