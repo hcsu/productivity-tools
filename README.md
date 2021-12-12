@@ -1,6 +1,8 @@
 # My productivity tools
 
-## Interact with multiple roles for `oidc2aws`
+## oidc-roles-selector
+
+**Easy select role for `oidc2aws`.**
 
 Requires：
 * oidc2aws
@@ -26,5 +28,8 @@ o() {
 }
 ```
 
-## Deal with multiple terraform targets
+## terraform-targets
+
+**Deal with multiple terraform targets**
+
 https://github.com/hcsu/terraform-targets
