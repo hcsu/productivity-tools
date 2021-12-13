@@ -35,6 +35,17 @@ o() {
     return
   fi
 }
+
+e() {
+  ROLE=$(ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | fzf --exact --height "50%")
+
+  if [ ! $ROLE ]; then
+    echo "No role selected, exit!"
+    return
+  fi
+  
+  print -z '$(oidc2aws -env -alias' $ROLE')'
+}
 ```
 
 ## terraform-targets
