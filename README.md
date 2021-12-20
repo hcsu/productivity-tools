@@ -5,8 +5,9 @@
 **Easy select role for `oidc2aws`.**
 
 Requires：
-* oidc2aws
-* fzf
+* [oidc2aws](https://github.com/theplant/oidc2aws)
+* [fzf](https://github.com/junegunn/fzf)
+* [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
 
 Copy following script in your `~/.zshrc` file.
 
