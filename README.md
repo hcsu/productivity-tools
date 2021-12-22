@@ -49,6 +49,23 @@ e() {
 }
 ```
 
+## ssh-hosts-selector
+
+**Easy select hosts in `.ssh/config`.**
+
+```bash
+s() {
+  SERVER=$(ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | fzf --exact --height "50%")
+
+  if [ ! $SERVER ]; then
+    echo "No server selected, exit!"
+    return
+  fi
+  
+  print -z "ssh $SERVER"
+}
+```
+
 ## terraform-targets
 
 **Deal with multiple terraform targets.**
