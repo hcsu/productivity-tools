@@ -53,6 +53,11 @@ e() {
 
 **Easy select hosts in `.ssh/config`.**
 
+Requires：
+* Saving hosts in `~/.ssh/config`
+* [fzf](https://github.com/junegunn/fzf)
+* [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
+
 ```bash
 s() {
   SERVER=$(ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | fzf --exact --height "50%")
