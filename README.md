@@ -60,12 +60,23 @@ Requires：
 
 ```bash
 s() {
-  SERVER=$(ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | fzf --exact --height "50%")
+  # remove legacy hosts
+  sed -i '' '/^_/d' ~/.ssh/rank 
 
+  # reload the latest hosts into rank file
+  ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | sed 's/^/_ /' >> ~/.ssh/rank
+
+  # get host need connect to, hosts are sorted by the most counted
+  SERVER=$(sed 's/^_ //' ~/.ssh/rank | sort| uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  
+  # exit if host not selected
   if [ ! $SERVER ]; then
     echo "No server selected, exit!"
     return
   fi
+
+  # save host to rank file
+  echo $SERVER >> ~/.ssh/rank
   
   print -z "ssh $SERVER"
 }
