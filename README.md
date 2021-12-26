@@ -13,12 +13,18 @@ Copy following script in your `~/.zshrc` file.
 
 ```shell
 o() {
-  ROLE=$(ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | fzf --exact --height "50%")
+  sed -i '' '/^_/d' ~/.oidc2aws/rank 
+
+  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
+  
+  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
     return
   fi
+
+  echo $ROLE >> ~/.oidc2aws/rank
   
   if [ -z "$1" ]; then
     print -z "oidc2aws -login -alias $ROLE"
@@ -38,12 +44,17 @@ o() {
 }
 
 e() {
-  ROLE=$(ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | fzf --exact --height "50%")
+  sed -i '' '/^_/d' ~/.oidc2aws/rank
+  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
+
+  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
     return
   fi
+
+  echo $ROLE >> ~/.oidc2aws/rank
   
   print -z '$(oidc2aws -env -alias' $ROLE')'
 }
