@@ -45,6 +45,7 @@ o() {
 
 e() {
   sed -i '' '/^_/d' ~/.oidc2aws/rank
+  
   ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
 
   ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
