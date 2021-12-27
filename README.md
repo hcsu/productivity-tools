@@ -4,6 +4,10 @@
 
 **Easy select role for `oidc2aws`.**
 
+Features:
+* Interaction with all roles in oidc2aws config file (excluded roles with suffix `iam` since I don't use them often)
+* Auto sort all roles base on frequency, using `~/.oidc2aws/rank` as command history file
+
 Requires：
 * [oidc2aws](https://github.com/theplant/oidc2aws)
 * [fzf](https://github.com/junegunn/fzf)
@@ -74,6 +78,10 @@ o() {
 ## ssh-hosts-selector
 
 **Easy select hosts in `.ssh/config`.**
+
+Features:
+* Interaction with all hosts in ssh config file
+* Auto sort all roles base on frequency, using `~/.ssh/rank` as command history file
 
 Requires：
 * Saving hosts in `~/.ssh/config`
