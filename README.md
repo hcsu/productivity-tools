@@ -13,41 +13,45 @@ Copy following script in your `~/.zshrc` file.
 
 ```shell
 e() {
-  if [ -e ~/.oidc2aws/rank ]
+  RANK_FILE="$HOME/.oidc2aws/rank"
+
+  if [ -e $RANK_FILE ]
   then
-    sed -i '' '/^_/d' ~/.oidc2aws/rank
+    sed -i '' '/^_/d' $RANK_FILE
   fi
   
-  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
+  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> $RANK_FILE
 
-  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
     return
   fi
 
-  echo $ROLE >> ~/.oidc2aws/rank
+  echo $ROLE >> $RANK_FILE
   
   print -z '$(oidc2aws -env -alias' $ROLE')'
 }
 
 o() {
-  if [ -e ~/.oidc2aws/rank ]
+  RANK_FILE="$HOME/.oidc2aws/rank"
+  
+  if [ -e $RANK_FILE ]
   then
-    sed -i '' '/^_/d' ~/.oidc2aws/rank
+    sed -i '' '/^_/d' $RANK_FILE
   fi
 
-  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
+  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> $RANK_FILE
   
-  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
     return
   fi
 
-  echo $ROLE >> ~/.oidc2aws/rank
+  echo $ROLE >> $RANK_FILE
   
   if [ -z "$1" ]; then
     print -z "oidc2aws -login -alias $ROLE"
@@ -78,17 +82,19 @@ Requires：
 
 ```bash
 s() {
-  if [ -e ~/.ssh/rank ]
+  RANK_FILE="$HOME/.ssh/rank"
+
+  if [ -e $RANK_FILE ]
   then
     # remove legacy hosts
-    sed -i '' '/^_/d' ~/.ssh/rank 
+    sed -i '' '/^_/d' $RANK_FILE 
   fi
 
   # reload the latest hosts into rank file
-  ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | sed 's/^/_ /' >> ~/.ssh/rank
+  ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | sed 's/^/_ /' >> $RANK_FILE
 
   # get host need connect to, hosts are sorted by the most counted
-  SERVER=$(sed 's/^_ //' ~/.ssh/rank | sort| uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  SERVER=$(sed 's/^_ //' $RANK_FILE | sort| uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
   
   # exit if host not selected
   if [ ! $SERVER ]; then
@@ -97,7 +103,7 @@ s() {
   fi
 
   # save host to rank file
-  echo $SERVER >> ~/.ssh/rank
+  echo $SERVER >> $RANK_FILE
   
   print -z "ssh $SERVER"
 }
