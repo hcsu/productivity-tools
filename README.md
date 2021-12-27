@@ -12,8 +12,31 @@ Requires：
 Copy following script in your `~/.zshrc` file.
 
 ```shell
+e() {
+  if [ -e ~/.oidc2aws/rank ]
+  then
+    sed -i '' '/^_/d' ~/.oidc2aws/rank
+  fi
+  
+  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
+
+  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+
+  if [ ! $ROLE ]; then
+    echo "No role selected, exit!"
+    return
+  fi
+
+  echo $ROLE >> ~/.oidc2aws/rank
+  
+  print -z '$(oidc2aws -env -alias' $ROLE')'
+}
+
 o() {
-  sed -i '' '/^_/d' ~/.oidc2aws/rank 
+  if [ -e ~/.oidc2aws/rank ]
+  then
+    sed -i '' '/^_/d' ~/.oidc2aws/rank
+  fi
 
   ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
   
@@ -42,23 +65,6 @@ o() {
     return
   fi
 }
-
-e() {
-  sed -i '' '/^_/d' ~/.oidc2aws/rank
-  
-  ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> ~/.oidc2aws/rank
-
-  ROLE=$(sed 's/^_ //' ~/.oidc2aws/rank | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
-
-  if [ ! $ROLE ]; then
-    echo "No role selected, exit!"
-    return
-  fi
-
-  echo $ROLE >> ~/.oidc2aws/rank
-  
-  print -z '$(oidc2aws -env -alias' $ROLE')'
-}
 ```
 
 ## ssh-hosts-selector
@@ -72,8 +78,11 @@ Requires：
 
 ```bash
 s() {
-  # remove legacy hosts
-  sed -i '' '/^_/d' ~/.ssh/rank 
+  if [ -e ~/.ssh/rank ]
+  then
+    # remove legacy hosts
+    sed -i '' '/^_/d' ~/.ssh/rank 
+  fi
 
   # reload the latest hosts into rank file
   ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | sed 's/^/_ /' >> ~/.ssh/rank
