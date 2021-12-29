@@ -26,7 +26,7 @@ e() {
   
   ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> $RANK_FILE
 
-  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --no-sort --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
@@ -48,7 +48,7 @@ o() {
 
   ag -o '(?<=\[alias.)(.*(?<!iam))(?=\])' ~/.oidc2aws/oidcconfig | sed 's/^/_ /' >> $RANK_FILE
   
-  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  ROLE=$(sed 's/^_ //' $RANK_FILE | sort | uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --no-sort --exact --height "50%")
 
   if [ ! $ROLE ]; then
     echo "No role selected, exit!"
@@ -102,7 +102,7 @@ s() {
   ag -o '(?<=^Host )(?!\*).+' ~/.ssh/config | sed 's/^/_ /' >> $RANK_FILE
 
   # get host need connect to, hosts are sorted by the most counted
-  SERVER=$(sed 's/^_ //' $RANK_FILE | sort| uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --exact --height "50%")
+  SERVER=$(sed 's/^_ //' $RANK_FILE | sort| uniq -c | sort -nr | awk  -F' ' '{print $NF}' | fzf --no-sort --exact --height "50%")
   
   # exit if host not selected
   if [ ! $SERVER ]; then
