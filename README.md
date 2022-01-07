@@ -62,10 +62,10 @@ o() {
     return
   fi
 
-  if [ $1 = login ]; then
+  if echo "$1" | grep -qwi "login"; then
     print -z "oidc2aws -login -alias $ROLE"
     return
-  elif [ $1 = env ]; then
+  elif echo "$1" | grep -qwi "env"; then
     print -z '$(oidc2aws -env -alias' $ROLE')'
     return
   else 
