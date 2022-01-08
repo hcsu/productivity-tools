@@ -123,7 +123,7 @@ s() {
 
 https://github.com/hcsu/terraform-targets
 
-## List all images for AES ECS running task
+## ecs-running-tasks
 
 **Review images at once for all required regions and all running tasks**
 
