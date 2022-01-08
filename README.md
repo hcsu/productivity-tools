@@ -125,9 +125,10 @@ https://github.com/hcsu/terraform-targets
 
 ## List all images for AES ECS running task
 
-**Review umages at once for all regions all running tasks**
+**Review images at once for all required regions and all running tasks**
 
 Requires：
 * [AWS Cli](https://aws.amazon.com/cli/)
 * [jq](https://github.com/stedolan/jq)
 
+https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-running-images.sh
