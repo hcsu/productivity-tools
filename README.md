@@ -122,3 +122,12 @@ s() {
 **Deal with multiple terraform targets.**
 
 https://github.com/hcsu/terraform-targets
+
+## List all images for AES ECS running task
+
+**Review umages at once for all regions all running tasks**
+
+Requires：
+* [AWS Cli](https://aws.amazon.com/cli/)
+* [jq](https://github.com/stedolan/jq)
+
