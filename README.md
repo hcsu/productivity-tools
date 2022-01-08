@@ -131,4 +131,4 @@ Requires：
 * [AWS CLI](https://aws.amazon.com/cli/)
 * [jq](https://github.com/stedolan/jq)
 
-[aws-ecs-running-images.sh]https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-running-images.sh
+[aws-ecs-running-images.sh](https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-running-images.sh)
