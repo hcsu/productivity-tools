@@ -5,6 +5,7 @@ TEMP=$TMPDIR'ecs-images.json'
 regions=(
   'us-west-2'
   'us-east-2'
+  'ap-southeast-1'
 )
 
 for region in "${regions[@]}"; do
