@@ -22,7 +22,7 @@ for region in "${regions[@]}"; do
         --region "$region" \
         --cluster "$cluster" \
         --tasks "$task" \
-        --query 'tasks[].{Cluster:clusterArn,Service:group,Image:containers[].image}' \
+        --query 'tasks[].{Cluster:clusterArn,Service:group,Image:containers[].image,CPU:cpu,Memory:memory}' \
         --output json >> "$TEMP"
     done
   done  
