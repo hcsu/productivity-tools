@@ -132,3 +132,12 @@ Requires：
 * [jq](https://github.com/stedolan/jq)
 
 [aws-ecs-running-images.sh](https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-inspect.sh)
+
+## Sort task-definition json file
+
+**Sort json files for top level and array `environment` and `secrets`**
+
+Requires：
+* [jq](https://github.com/stedolan/jq)
+
+[aws-ecs-task-definition-sort.sh](https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-task-definition-sort.sh)
