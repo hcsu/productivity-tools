@@ -133,7 +133,7 @@ Requires：
 
 [aws-ecs-running-images.sh](https://github.com/hcsu/productivity-tools/blob/main/aws-ecs-inspect.sh)
 
-## Sort task-definition json file
+## ecs-task-definition-sort
 
 **Sort json files for top level and array `environment` and `secrets`**
 
